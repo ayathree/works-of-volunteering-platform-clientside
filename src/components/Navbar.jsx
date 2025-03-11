@@ -1,7 +1,18 @@
 import { Link } from "react-router";
+// import { useContext } from "react"
+import {  useNavigate } from "react-router";
+// import { AuthContext } from "../routes/AuthProvider";
 
 
 const Navbar = () => {
+    // const { user, logoutUser } = useContext(AuthContext);
+    const token = localStorage.getItem("token");
+    const navigate = useNavigate();
+
+    const handleLogout = () => {
+       localStorage.removeItem('token')
+        navigate("/");
+    };
     return (
         <div>
             <div className="navbar bg-base-100 shadow-sm">
@@ -13,7 +24,7 @@ const Navbar = () => {
       <ul
         tabIndex={0}
         className="menu menu-sm dropdown-content bg-base-100 rounded-box z-1 mt-3 w-52 p-2 shadow">
-       <Link to={'/profile'}> <li><a>Profile</a></li></Link>
+       <Link to={'/userProfile'}> <li><a>Profile</a></li></Link>
         {/* <li>
           <a>Parent</a>
           <ul className="p-2">
@@ -29,13 +40,17 @@ const Navbar = () => {
   <div className="navbar-center hidden lg:flex">
     <ul className="menu menu-horizontal px-1">
        <Link to={'/'}> <li><a>Home</a></li></Link>
-      <Link to={'/profile'}><li><a>Profile</a></li></Link>
+      <Link to={'/userProfile'}><li><a>Profile</a></li></Link>
       
       
     </ul>
   </div>
   <div className="navbar-end">
-  <Link to={'/login'}><a className="btn">Login</a></Link>
+  {
+    !token?(<Link to={'/loginUser'}><a className="btn">Login</a></Link>):(
+        <a onClick={handleLogout} className="btn" >Logout</a>
+    )
+  }
   </div>
 </div>
             

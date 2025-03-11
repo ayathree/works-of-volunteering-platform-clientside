@@ -3,6 +3,8 @@ import Root from "../pages/Root";
 import Home from "../pages/Home";
 import Login from "../pages/Login";
 import Profile from "../pages/Profile";
+import Register from "../pages/Register";
+import PrivateRoute from "./PrivateRoute";
 
 
 const router =createBrowserRouter([
@@ -15,12 +17,17 @@ const router =createBrowserRouter([
                 element:<Home></Home>
             },
             {
-                path:'/login',
+                path:'/loginUser',
                 element:<Login></Login>
             },
             {
-                path:'/profile',
-                element:<Profile></Profile>
+                path:'/register',
+                element:<Register></Register>
+
+            },
+            {
+                path:'/userProfile',
+                element:<PrivateRoute><Profile></Profile></PrivateRoute>
             }
         ]
     }
