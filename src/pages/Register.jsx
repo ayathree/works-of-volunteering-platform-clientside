@@ -33,16 +33,27 @@ const Register = () => {
     };
 
     return (
-        <div>
-            <h1>Register</h1>
-            <form onSubmit={handleRegister}>
-                <input type="text" placeholder="Name" onChange={(e) => setName(e.target.value)} />
-                <input type="email" placeholder="Email" onChange={(e) => setEmail(e.target.value)} />
-                <input type="password" placeholder="Password" onChange={(e) => setPassword(e.target.value)} />
-                <button className="disabled:opacity-70" disabled={loading} type="submit">{loading? "Submitting...": "Register"}</button>
+        <div className="flex justify-center items-center">
+            <div className="border-2 border-black w-full max-w-sm   p-2 shadow-2xl mt-20 bg-blue-50">
+            <h1 className="text-center text-3xl font-bold mb-3">Register</h1>
+            <form className="flex flex-col justify-center items-center" onSubmit={handleRegister}>
+                <label className="text-xl font-semibold">Name</label>
+                
+                <input className="outline p-2" type="text" placeholder="Name" onChange={(e) => setName(e.target.value)} />
+                
+                <label className="text-xl font-semibold">Email</label>
+                
+                <input  className="outline p-2" type="email" placeholder="Email" onChange={(e) => setEmail(e.target.value)} />
+                
+                <label className="text-xl font-semibold">Password</label>
+                
+                <input  className="outline p-2" type="password" placeholder="Password" onChange={(e) => setPassword(e.target.value)} />
+                <br />
+                <button className="disabled:opacity-70 bg-blue-600 p-2 text-white btn mt-3" disabled={loading} type="submit">{loading? "Submitting...": "Register"}</button>
             </form>
-<p className="text-xl">Already have an account? <Link to={'/loginUser'}><span className="text-blue-600">Log In Here</span></Link></p>
+<p className="text-xl text-center">Already have an account? <Link to={'/loginUser'}><span className="text-blue-600">Log In Here</span></Link></p>
 <ToastContainer />
+        </div>
         </div>
     );
 };
