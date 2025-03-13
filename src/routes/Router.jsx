@@ -5,6 +5,8 @@ import Login from "../pages/Login";
 import Profile from "../pages/Profile";
 import Register from "../pages/Register";
 import PrivateRoute from "./PrivateRoute";
+import Events from "../pages/Events";
+import CreateEvents from "../pages/CreateEvents";
 
 
 const router =createBrowserRouter([
@@ -28,6 +30,14 @@ const router =createBrowserRouter([
             {
                 path:'/userProfile',
                 element:<PrivateRoute><Profile></Profile></PrivateRoute>
+            },
+            {
+                path:'/events',
+                element:<Events></Events>
+            },
+            {
+                path:'/createEvents',
+                element:<CreateEvents></CreateEvents>
             }
         ]
     }
