@@ -1,36 +1,78 @@
-import { Link } from "react-router";
+// import { Link } from "react-router";
+
+import axios from "axios";
+import { toast, ToastContainer } from "react-toastify";
 
 
 const CreateEvents = () => {
+    const handleSubmit = event=>{
+        event.preventDefault();
+        const form = event.target;
+        const title = form.title.value;
+        const description = form.description.value;
+        const date = form.date.value;
+        const time = form.time.value;
+        const location = form.location.value;
+        const category = form.category.value;
+       
+        const newEvents={title,description,date,time,location,category}
+
+        console.log(newEvents)
+
+        axios.post("http://localhost:5000/allEvents", newEvents)
+       .then((res)=>{
+        toast('Event create successfully')
+        console.log("Event created",res);
+        form.reset()
+        
+
+       })
+        
+        .catch ((error)=>  console.error("Creation error:", error))
+        
+        toast('Creation failed')
+    }
+
+
     return (
         <div className="flex justify-center items-center">
             <div className="border-2 border-black  max-w-lg   p-3 shadow-2xl mt-20 bg-blue-50">
            <h1 className="uppercase font-bold text-3xl text-center">Volunteer Event create Form</h1>
-           <form  >
+           <form onSubmit={handleSubmit} >
             <div className="flex flex-row justify-center items-center gap-6 mt-4">
             <div className="flex flex-col">
                <label className="text-xl font-semibold">Title</label>
                 
-                <input className="outline p-2" type="text" placeholder="title"  />
+                <input name="title" className="outline p-2" type="text" placeholder="title" required  />
                 
                 <label className="text-xl font-semibold">Description</label>
                 
-                <input  className="outline p-2" type="text-area" placeholder="description"  />
+                <input name="description" className="outline p-2" type="text-area" placeholder="description"  />
                 
                 <label className="text-xl font-semibold">Date</label>
                 
-                <input  className="outline p-2" type="date" placeholder="date"  />
+                <input name="date" className="outline p-2" type="date" placeholder="date" required />
                </div>
                 <div className="flex flex-col">
                 <label className="text-xl font-semibold">Time</label>
                 
-                <input  className="outline p-2" type="time" placeholder="time"  />
+                <input name="time"  className="outline p-2" type="time" placeholder="time" required />
                 <label className="text-xl font-semibold">Location</label>
+                <select name="location" className="outline p-2"  required>
+                    <option value=""></option>
+                    <option value="Dhaka">Dhaka</option>
+                    <option value="Chattogram">Chattogram</option>
+                </select>
                 
-                <input  className="outline p-2" type="text" placeholder="location"  />
+                
                 <label className="text-xl font-semibold">Category</label>
+                <select name="category" className="outline p-2"  required>
+                    <option value=""></option>
+                    <option value="Environmental">Environmental</option>
+                    <option value="Educational">Educational</option>
+                    <option value="Healthcare">Healthcare</option>
+                </select>
                 
-                <input  className="outline p-2" type="text" placeholder="category"  />
                 </div>
 
             </div>
@@ -41,6 +83,7 @@ const CreateEvents = () => {
                 <button className="disabled:opacity-70 bg-blue-600 p-2 text-white btn mt-3 " >Create</button>
                 </div>
             </form>
+            <ToastContainer />
         </div>
         </div>
     );
