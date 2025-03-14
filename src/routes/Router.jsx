@@ -33,11 +33,12 @@ const router =createBrowserRouter([
             },
             {
                 path:'/events',
-                element:<Events></Events>
+                element:<Events></Events>,
+                loader:()=>fetch('http://localhost:5000/allEvents')
             },
             {
                 path:'/createEvents',
-                element:<CreateEvents></CreateEvents>
+                element:<PrivateRoute><CreateEvents></CreateEvents></PrivateRoute>
             }
         ]
     }
