@@ -7,6 +7,7 @@ import Register from "../pages/Register";
 import PrivateRoute from "./PrivateRoute";
 import Events from "../pages/Events";
 import CreateEvents from "../pages/CreateEvents";
+import Community from "../pages/Community";
 
 
 const router =createBrowserRouter([
@@ -39,6 +40,10 @@ const router =createBrowserRouter([
             {
                 path:'/createEvents',
                 element:<PrivateRoute><CreateEvents></CreateEvents></PrivateRoute>
+            },
+            {
+                path:'/community',
+                element:<Community></Community>
             }
         ]
     }

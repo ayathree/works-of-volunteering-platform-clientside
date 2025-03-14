@@ -42,6 +42,8 @@ const Navbar = () => {
        <Link to={'/'}> <li><a>Home</a></li></Link>
       <Link to={'/userProfile'}><li><a>Profile</a></li></Link>
       <Link to={'/events'}><li><a>Volunteer Events</a></li></Link>
+      <Link to={'/community'}><li><a>Community</a></li></Link>
+
       
       
     </ul>
