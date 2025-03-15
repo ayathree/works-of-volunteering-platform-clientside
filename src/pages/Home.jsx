@@ -2,8 +2,10 @@
 
 const Home = () => {
     return (
-        <div>
-             <p className="uppercase text-3xl font-bold text-center">volunteering platform</p>
+        <div className="bg-blue-50 min-h-screen">
+             <p className="uppercase text-3xl font-bold text-center mt-20">welcome to 
+                <br />
+                volunteering platform</p>
              
             
         </div>
