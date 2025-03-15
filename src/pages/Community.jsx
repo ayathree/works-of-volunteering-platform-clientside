@@ -2,8 +2,10 @@ import axios from "axios";
 import { useState } from "react";
 import { BiSolidCategory } from "react-icons/bi";
 import { FaLocationDot } from "react-icons/fa6";
+import { TbUrgent } from "react-icons/tb";
 import { useLoaderData } from "react-router";
 import { toast, ToastContainer } from "react-toastify";
+
 
 
 const Community = () => {
@@ -43,6 +45,20 @@ const Community = () => {
         
         toast('Post submission failed')
     }
+    const [expandedPosts, setExpandedPosts] = useState({});
+    const toggleExpand = (postId) => {
+        setExpandedPosts((prev) => ({
+          ...prev,
+          [postId]: !prev[postId],
+        }));
+    }
+
+
+   
+      
+        const maxLength = 50; // Max characters before "See More"
+      
+  
 
     return (
         <div className="mx-7">
@@ -55,26 +71,50 @@ const Community = () => {
             <h1 className=" mt-20 text-2xl font-bold text-center">All Posts</h1>
             <div className="grid grid-cols-3 justify-center items-center gap-4">
             {
-                posts.map((post)=>(<div key={post._id} className="border-2 border-black w-full max-w-sm p-5 shadow-2xl bg-blue-50 ">
-                  
-                  <h1 className="text-center font-bold text-2xl">{post.about}</h1>
-                                             
-                    
-                                              
-                    
-                                             <div className="flex flex-col justify-center items-center gap-3">
-                                                 <p className="flex items-center gap-1">
-                                                     <FaLocationDot /> {post.location}
-                                                 </p>
-                                                 <p className="flex items-center gap-1">
-                                                     <BiSolidCategory /> {post.category}
-                                                 </p>
-                                             </div>
+                posts.map((post)=>(<div key={post._id} className="border-2 mt-10 border-black w-full max-w-sm p-5 shadow-2xl bg-blue-50 ">
+                    <div className="flex justify-end items-end">
+                      
+                    <p className={`flex items-center gap-1 ${
+      post.urgency === "Urgent" ? "bg-red-500"
+        : post.urgency === "Low"
+        ? "bg-yellow-500"
+        : post.urgency === "Medium"
+        ? "bg-green-500"
+        : "text-black"
+    } px-2 font-semibold border-black border-2`}>
+        <TbUrgent /> {post.urgency}
+        </p>
+</div>
+{/* Show limited or full content */}
+<p className=" text-xl font-semibold">
+            {expandedPosts[post._id] || post.about.length <= maxLength
+              ? post.about
+              : `${post.about.slice(0, maxLength)}...`}
+          </p>
+
+          {/* See More/See Less Button */}
+          {post.about.length > maxLength && (
+            <button
+              onClick={() => toggleExpand(post._id)}
+              className="text-blue-500 mt-2 underline cursor-pointer"
+            >
+              {expandedPosts[post._id] ? "See Less" : "See More..."}
+            </button>
+          )}
+    
+        <div className="flex flex-col justify-center items-center gap-3">
+       <p className="flex items-center gap-1">
+        <FaLocationDot /> {post.location}
+       </p>
+         <p className="flex items-center gap-1">
+         <BiSolidCategory /> {post.category}
+           </p>
+             </div>
                                        
              
-                                         <div className="flex justify-center mt-3">
-                                             <button className="bg-blue-600 p-2 px-5 text-white btn">Join Event</button>
-                                         </div>
+         <div className="flex justify-center mt-3">
+         <button className="bg-blue-600 p-2 px-5 text-white btn">Join Event</button>
+         </div>
                   
 
 
@@ -85,7 +125,8 @@ const Community = () => {
             
             </div>
             {/* Modal Section (Visible when showModal is true) */}
-            {showModal && (
+         
+           {showModal && (
                 <div className="fixed inset-0 flex items-center justify-center backdrop-blur-sm  bg-opacity-50">
                     <div className="bg-blue-50 border-2 border-black p-8 rounded-lg shadow-lg max-w-md w-full">
                         <h2 className="text-2xl font-bold mb-4">Post a Help Request</h2>
@@ -128,6 +169,7 @@ const Community = () => {
                     </div>
                 </div>
             )}
+          
 <ToastContainer></ToastContainer>
         </div>
     );
