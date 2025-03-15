@@ -3,7 +3,7 @@ import { useState } from "react";
 import { BiSolidCategory } from "react-icons/bi";
 import { FaLocationDot } from "react-icons/fa6";
 import { TbUrgent } from "react-icons/tb";
-import { useLoaderData } from "react-router";
+import { useLoaderData, useNavigate } from "react-router";
 import { toast, ToastContainer } from "react-toastify";
 
 
@@ -12,13 +12,25 @@ const Community = () => {
 
     const loadedPosts = useLoaderData();
     const [posts, setPosts] = useState(loadedPosts);
-
-    
     const [showModal, setShowModal] = useState(false);
+
+    const isAuthenticated = () => {
+        // Check for token (replace 'token' with your actual key)
+        const token = localStorage.getItem("token");
+        return token !== null; // If token exists, return true (authenticated)
+      };  
     // Function to open the modal
-    const openModal = () => setShowModal(true);
+    const handleOpenModal = () => {
+        if (!isAuthenticated()) {
+          
+          navigate("/loginUser"); // Redirect to login if not authenticated
+          return;
+        }
+        setShowModal(true); // Open modal if authenticated
+      };
     // Function to close the modal
     const closeModal = () => setShowModal(false);
+    const navigate = useNavigate();
 
     const handleSubmit = event=>{
         event.preventDefault();
@@ -56,7 +68,9 @@ const Community = () => {
 
    
       
-        const maxLength = 150; // Max characters before "See More"
+        // const maxLength = 150; // Max characters before "See More"
+
+         
       
   
 
@@ -64,7 +78,7 @@ const Community = () => {
         <div className="mx-7">
             <div className="border-2 border-black bg-blue-50 shadow-2xl mt-20 p-3 flex flex-row justify-between items-center">
                 <p className="text-2xl font-bold">Want to post a request for help.</p>
-                    <button onClick={openModal} className="btn bg-blue-500 text-white">Post</button>
+                    <button onClick={handleOpenModal} className="btn bg-blue-500 text-white">Post</button>
                
             </div>
             <div>
