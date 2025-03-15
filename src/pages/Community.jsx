@@ -1,9 +1,16 @@
 import axios from "axios";
 import { useState } from "react";
+import { BiSolidCategory } from "react-icons/bi";
+import { FaLocationDot } from "react-icons/fa6";
+import { useLoaderData } from "react-router";
 import { toast, ToastContainer } from "react-toastify";
 
 
 const Community = () => {
+
+    const loadedPosts = useLoaderData();
+    const [posts, setPosts] = useState(loadedPosts);
+
     
     const [showModal, setShowModal] = useState(false);
     // Function to open the modal
@@ -41,9 +48,41 @@ const Community = () => {
         <div className="mx-7">
             <div className="border-2 border-black bg-blue-50 shadow-2xl mt-20 p-3 flex flex-row justify-between items-center">
                 <p className="text-2xl font-bold">Want to post a request for help.</p>
-                {/* <Link to="/createEvents"> */}
                     <button onClick={openModal} className="btn bg-blue-500 text-white">Post</button>
-                {/* </Link> */}
+               
+            </div>
+            <div>
+            <h1 className=" mt-20 text-2xl font-bold text-center">All Posts</h1>
+            <div className="grid grid-cols-3 justify-center items-center gap-4">
+            {
+                posts.map((post)=>(<div key={post._id} className="border-2 border-black w-full max-w-sm p-5 shadow-2xl bg-blue-50 ">
+                  
+                  <h1 className="text-center font-bold text-2xl">{post.about}</h1>
+                                             
+                    
+                                              
+                    
+                                             <div className="flex flex-col justify-center items-center gap-3">
+                                                 <p className="flex items-center gap-1">
+                                                     <FaLocationDot /> {post.location}
+                                                 </p>
+                                                 <p className="flex items-center gap-1">
+                                                     <BiSolidCategory /> {post.category}
+                                                 </p>
+                                             </div>
+                                       
+             
+                                         <div className="flex justify-center mt-3">
+                                             <button className="bg-blue-600 p-2 px-5 text-white btn">Join Event</button>
+                                         </div>
+                  
+
+
+                </div>))
+            }
+
+            </div>
+            
             </div>
             {/* Modal Section (Visible when showModal is true) */}
             {showModal && (

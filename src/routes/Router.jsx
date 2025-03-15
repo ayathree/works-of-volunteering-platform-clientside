@@ -43,7 +43,9 @@ const router =createBrowserRouter([
             },
             {
                 path:'/community',
-                element:<Community></Community>
+                element:<Community></Community>,
+                loader:()=>fetch('http://localhost:5000/allPosts')
+
             }
         ]
     }
