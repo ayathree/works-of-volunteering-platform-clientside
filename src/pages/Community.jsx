@@ -45,18 +45,18 @@ const Community = () => {
         
         toast('Post submission failed')
     }
-    const [expandedPosts, setExpandedPosts] = useState({});
-    const toggleExpand = (postId) => {
-        setExpandedPosts((prev) => ({
-          ...prev,
-          [postId]: !prev[postId],
-        }));
-    }
+    // const [expandedPosts, setExpandedPosts] = useState({});
+    // const toggleExpand = (postId) => {
+    //     setExpandedPosts((prev) => ({
+    //       ...prev,
+    //       [postId]: !prev[postId],
+    //     }));
+    // }
 
 
    
       
-        const maxLength = 50; // Max characters before "See More"
+        const maxLength = 150; // Max characters before "See More"
       
   
 
@@ -69,9 +69,9 @@ const Community = () => {
             </div>
             <div>
             <h1 className=" mt-20 text-2xl font-bold text-center">All Posts</h1>
-            <div className="grid grid-cols-3 justify-center items-center gap-4">
+            <div className="grid grid-cols-1 justify-center items-center gap-4">
             {
-                posts.map((post)=>(<div key={post._id} className="border-2 mt-10 border-black w-full max-w-sm p-5 shadow-2xl bg-blue-50 ">
+                posts.map((post)=>(<div key={post._id} className="border-2 mt-10 border-black mx-20  p-5 shadow-2xl bg-blue-50 ">
                     <div className="flex justify-end items-end">
                       
                     <p className={`flex items-center gap-1 ${
@@ -85,35 +85,26 @@ const Community = () => {
         <TbUrgent /> {post.urgency}
         </p>
 </div>
-{/* Show limited or full content */}
-<p className=" text-xl font-semibold">
-            {expandedPosts[post._id] || post.about.length <= maxLength
-              ? post.about
-              : `${post.about.slice(0, maxLength)}...`}
-          </p>
 
-          {/* See More/See Less Button */}
-          {post.about.length > maxLength && (
-            <button
-              onClick={() => toggleExpand(post._id)}
-              className="text-blue-500 mt-2 underline cursor-pointer"
-            >
-              {expandedPosts[post._id] ? "See Less" : "See More..."}
-            </button>
-          )}
+<p className=" text-xl font-semibold mt-5">{post.about} </p>
     
-        <div className="flex flex-col justify-center items-center gap-3">
-       <p className="flex items-center gap-1">
+        <div className="flex flex-col justify-start items-start gap-3 mt-6">
+       <p className="flex items-start gap-1">
         <FaLocationDot /> {post.location}
        </p>
-         <p className="flex items-center gap-1">
+         <p className="flex items-start gap-1">
          <BiSolidCategory /> {post.category}
            </p>
              </div>
                                        
              
-         <div className="flex justify-center mt-3">
-         <button className="bg-blue-600 p-2 px-5 text-white btn">Join Event</button>
+         <div className="flex flex-col justify-start mt-3">
+            <p className="underline font-bold text-2xl">Message Section</p>
+            <textarea type="text" className="outline-2 mt-5 h-30 p-2 " placeholder="write here" />
+
+      
+        <button className="bg-blue-600 p-2 px-5 text-white btn mt-5 w-24 text-xl">Send</button>
+       
          </div>
                   
 
