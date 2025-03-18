@@ -1,10 +1,8 @@
 import axios from "axios";
 import { useState } from "react";
-import { BiSolidCategory } from "react-icons/bi";
-import { FaLocationDot } from "react-icons/fa6";
-import { TbUrgent } from "react-icons/tb";
-import { useLoaderData, useNavigate } from "react-router";
+import { useLoaderData } from "react-router";
 import { toast, ToastContainer } from "react-toastify";
+import AllPostCard from "../components/AllpostCard";
 
 
 
@@ -14,68 +12,55 @@ const Community = () => {
     const [posts, setPosts] = useState(loadedPosts);
     const [showModal, setShowModal] = useState(false);
 
-    const isAuthenticated = () => {
-        // Check for token (replace 'token' with your actual key)
-        const token = localStorage.getItem("token");
-        return token !== null; // If token exists, return true (authenticated)
-      };  
+     
     // Function to open the modal
-    const handleOpenModal = () => {
-        if (!isAuthenticated()) {
-          
-          navigate("/loginUser"); // Redirect to login if not authenticated
-          return;
-        }
-        setShowModal(true); // Open modal if authenticated
-      };
+    const handleOpenModal = () => setShowModal(true);
+      
     // Function to close the modal
     const closeModal = () => setShowModal(false);
-    const navigate = useNavigate();
+    // const navigate = useNavigate();
 
-    const handleSubmit = event=>{
-        event.preventDefault();
-        const form = event.target;
-        const about= form.about.value;
-        const category = form.category.value;
-        const location = form.location.value;
-        const urgency = form.urgency.value;
-       
-        const newPosts={about,location,category,urgency}
+    const token = JSON.parse(localStorage.getItem('token'))
+const handleSubmit = async (event) => {
+    event.preventDefault();
 
-        console.log(newPosts)
+    const form = event.target;
+    const about = form.about.value;
+    const category = form.category.value;
+    const location = form.location.value;
+    const urgency = form.urgency.value;
 
-        axios.post("http://localhost:5000/allPosts", newPosts)
-       .then((res)=>{
-        toast('Post submitted successfully')
-        console.log("Post created",res);
-        form.reset()
-        
+    const newPosts = { about, category, location, urgency };
 
-       })
-        
-        .catch ((error)=>  console.error("post error:", error))
-        
-        toast('Post submission failed')
+    if (!token) {
+        toast("Unauthorized: Please log in first");
+        return;
     }
-    // const [expandedPosts, setExpandedPosts] = useState({});
-    // const toggleExpand = (postId) => {
-    //     setExpandedPosts((prev) => ({
-    //       ...prev,
-    //       [postId]: !prev[postId],
-    //     }));
-    // }
 
+    try {
+        const response = await axios.post("http://localhost:5000/allPosts", newPosts, {
+            headers: {
+                Authorization: `Bearer ${token}`,
+            },
+        });
+        console.log("Sending Token:", token);
 
-   
-      
-        // const maxLength = 150; // Max characters before "See More"
+        toast("Post submitted successfully");
+        console.log("Post created:", response.data);
+        form.reset();
+    } catch (error) {
+        console.error("Post error:", error);
+        toast("Post submission failed");
+    }
+};
+
 
          
       
   
 
     return (
-        <div className="mx-7">
+        <div className="mx-7 mb-20">
             <div className="border-2 border-black bg-blue-50 shadow-2xl mt-20 p-3 flex flex-row justify-between items-center">
                 <p className="text-2xl font-bold">Want to post a request for help.</p>
                     <button onClick={handleOpenModal} className="btn bg-blue-500 text-white">Post</button>
@@ -85,45 +70,12 @@ const Community = () => {
             <h1 className=" mt-20 text-2xl font-bold text-center">All Posts</h1>
             <div className="grid grid-cols-1 justify-center items-center gap-4">
             {
-                posts.map((post)=>(<div key={post._id} className="border-2 mt-10 border-black mx-20  p-5 shadow-2xl bg-blue-50 ">
-                    <div className="flex justify-end items-end">
-                      
-                    <p className={`flex items-center gap-1 ${
-      post.urgency === "Urgent" ? "bg-red-500"
-        : post.urgency === "Low"
-        ? "bg-yellow-500"
-        : post.urgency === "Medium"
-        ? "bg-green-500"
-        : "text-black"
-    } px-2 font-semibold border-black border-2`}>
-        <TbUrgent /> {post.urgency}
-        </p>
-</div>
-
-<p className=" text-xl font-semibold mt-5">{post.about} </p>
-    
-        <div className="flex flex-col justify-start items-start gap-3 mt-6">
-       <p className="flex items-start gap-1">
-        <FaLocationDot /> {post.location}
-       </p>
-         <p className="flex items-start gap-1">
-         <BiSolidCategory /> {post.category}
-           </p>
-             </div>
-                                       
-             
-         <div className="flex flex-col justify-start mt-3">
-            <p className="underline font-bold text-2xl">Message Section</p>
-            <textarea type="text" className="outline-2 mt-5 h-30 p-2 " placeholder="write here" />
-
-      
-        <button className="bg-blue-600 p-2 px-5 text-white btn mt-5 w-24 text-xl">Send</button>
-       
-         </div>
+                posts.map((post)=>(<AllPostCard key={post._id} post={post} >
+                    
                   
 
 
-                </div>))
+                </AllPostCard>))
             }
 
             </div>

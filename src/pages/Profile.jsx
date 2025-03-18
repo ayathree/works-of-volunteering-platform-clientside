@@ -37,7 +37,7 @@ const Profile = () => {
         fetchData()
     },[])
     return (
-       <div className="flex justify-center items-center">
+       <div className="flex justify-center items-center mb-20">
          <div className="mt-40 border-2 border-black p-7 shadow-2xl bg-blue-50">
             <p className="text-center text-3xl mt-3">{loading && "data is loading....."}</p>
            <p className="text-xl font-bold"> <span className="uppercase text-3xl">Name:</span> {data.name}</p>

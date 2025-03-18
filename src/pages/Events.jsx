@@ -67,7 +67,7 @@ const Events = () => {
     };
 
     return (
-        <div className="mx-7">
+        <div className="mx-7 mb-20">
             {/* Header Section */}
             <div className="border-2 border-black bg-blue-50 shadow-2xl mt-20 p-3 flex flex-row justify-between items-center">
                 <p className="text-2xl font-bold">You can create any volunteer events.</p>

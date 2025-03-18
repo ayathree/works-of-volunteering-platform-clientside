@@ -35,7 +35,7 @@ const CreateEvents = () => {
 
 
     return (
-        <div className="flex justify-center items-center">
+        <div className="flex justify-center items-center mb-20">
             <div className="border-2 border-black  max-w-lg   p-3 shadow-2xl mt-20 bg-blue-50">
            <h1 className="uppercase font-bold text-3xl text-center">Volunteer Event create Form</h1>
            <form onSubmit={handleSubmit} >
