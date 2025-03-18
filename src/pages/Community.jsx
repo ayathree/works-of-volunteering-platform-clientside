@@ -53,10 +53,7 @@ const handleSubmit = async (event) => {
         toast("Post submission failed");
     }
 };
-
-
-         
-      
+    
   
 
     return (
