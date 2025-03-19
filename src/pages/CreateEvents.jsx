@@ -5,8 +5,10 @@ import { toast, ToastContainer } from "react-toastify";
 
 
 const CreateEvents = () => {
-    const handleSubmit = event=>{
+    const token = JSON.parse(localStorage.getItem('token'))
+    const handleSubmit = async (event) => {
         event.preventDefault();
+    
         const form = event.target;
         const title = form.title.value;
         const description = form.description.value;
@@ -18,20 +20,28 @@ const CreateEvents = () => {
         const newEvents={title,description,date,time,location,category}
 
         console.log(newEvents)
-
-        axios.post("http://localhost:5000/allEvents", newEvents)
-       .then((res)=>{
-        toast('Event create successfully')
-        console.log("Event created",res);
-        form.reset()
-        
-
-       })
-        
-        .catch ((error)=>  console.error("Creation error:", error))
-        
-        toast('Creation failed')
-    }
+    
+        if (!token) {
+            toast("Unauthorized: Please log in first");
+            return;
+        }
+    
+        try {
+            const response = await axios.post("http://localhost:5000/allEvents", newEvents, {
+                headers: {
+                    Authorization: `Bearer ${token}`,
+                },
+            });
+            console.log("Sending Token:", token);
+    
+            toast("Event created successfully");
+            console.log("Event created:", response.data);
+            form.reset();
+        } catch (error) {
+            console.error("Event error:", error);
+            toast("Event creation failed");
+        }
+    };
 
 
     return (

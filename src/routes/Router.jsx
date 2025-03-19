@@ -39,7 +39,7 @@ const router =createBrowserRouter([
             },
             {
                 path:'/createEvents',
-                element:<PrivateRoute><CreateEvents></CreateEvents></PrivateRoute>
+                element:<CreateEvents></CreateEvents>
             },
             {
                 path:'/community',
