@@ -5,7 +5,7 @@ import { TbUrgent } from "react-icons/tb";
 import { toast } from "react-toastify";
 
 const AllPostCard = ({ post }) => {
-    const { urgency, about, location, category, creatorId } = post;
+    const { _id: postId, urgency, about, location, category, creatorId } = post;
     console.log("Post Data:", post);
 
     // Get token from localStorage
@@ -17,6 +17,7 @@ const AllPostCard = ({ post }) => {
         event.preventDefault();
         const form = event.target;
         const message = form.message.value.trim();
+        
 
         // Ensure token and message exist
         if (!token) {
@@ -30,7 +31,7 @@ const AllPostCard = ({ post }) => {
         }
 
         // Prepare message object
-        const newMessage = { message, creatorId };
+        const newMessage = {postId, message, creatorId };
 
         try {
             // Axios POST request
