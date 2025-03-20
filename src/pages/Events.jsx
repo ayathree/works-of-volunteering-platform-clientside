@@ -81,7 +81,7 @@ const Events = () => {
 
       // Send request with Authorization header
       const response = await axios.post(
-        "http://localhost:5000/addEvent",
+        "https://works-of-volunteering-platform-serverside.vercel.app/addEvent",
         { eventId, eventCreatorId },
         {
           headers: {

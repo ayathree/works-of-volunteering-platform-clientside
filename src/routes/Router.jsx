@@ -35,7 +35,7 @@ const router =createBrowserRouter([
             {
                 path:'/events',
                 element:<Events></Events>,
-                loader:()=>fetch('http://localhost:5000/allEvents')
+                loader:()=>fetch('https://works-of-volunteering-platform-serverside.vercel.app/allEvents')
             },
             {
                 path:'/createEvents',
@@ -44,7 +44,7 @@ const router =createBrowserRouter([
             {
                 path:'/community',
                 element:<Community></Community>,
-                loader:()=>fetch('http://localhost:5000/allPosts')
+                loader:()=>fetch('https://works-of-volunteering-platform-serverside.vercel.app/allPosts')
 
             }
         ]

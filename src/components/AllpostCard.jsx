@@ -36,7 +36,7 @@ const AllPostCard = ({ post }) => {
         try {
             // Axios POST request
             const response = await axios.post(
-                "http://localhost:5000/allMessages",
+                "https://works-of-volunteering-platform-serverside.vercel.app/allMessages",
                 newMessage,
                 {
                     headers: {

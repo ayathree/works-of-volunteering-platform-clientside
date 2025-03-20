@@ -17,7 +17,7 @@ const Register = () => {
         
         e.preventDefault();
         
-       axios.post("http://localhost:5000/users", { name, email, password })
+       axios.post("https://works-of-volunteering-platform-serverside.vercel.app/users", { name, email, password })
        .then((res)=>{
         toast('Registration successfully')
            console.log("User register",res);
@@ -28,8 +28,7 @@ const Register = () => {
         .catch ((error)=>  console.error("Registration error:", error))
         setLoading(false)
         toast('registration failed')
-        //    
-        // }
+       
     };
 
     return (

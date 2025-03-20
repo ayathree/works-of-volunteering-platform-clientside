@@ -14,14 +14,14 @@ const Profile = () => {
       const headers = {
         Authorization: `Bearer ${token}`
       };
-      const res = await axios.post("http://localhost:5000/profile", {}, { headers });
-      console.log("✅ User data fetched:", res.data.data);
+      const res = await axios.post("https://works-of-volunteering-platform-serverside.vercel.app/profile", {}, { headers });
+      console.log("User data fetched:", res.data.data);
 
       setData(res.data.data);
     } catch (error) {
-      console.error("❌ Error while fetching:", error);
+      console.error("Error while fetching:", error);
     } finally {
-      setLoading(false); // Ensure loading is false after fetching (whether success or error)
+      setLoading(false); 
     }
   };
 
@@ -118,7 +118,7 @@ const Profile = () => {
         )}
       </div>
 
-      {/* User Posts */}
+      {/* User joined events */}
       <div className="mt-20 border-2 border-black p-7 shadow-2xl bg-blue-50 w-2/3">
         <h2 className="text-2xl font-semibold mb-4">Events you have joined:</h2>
         {data.joiners && data.joiners.length === 0 ? (

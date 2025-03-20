@@ -1,11 +1,11 @@
 import { Link } from "react-router";
 // import { useContext } from "react"
 import {  useNavigate } from "react-router";
-// import { AuthContext } from "../routes/AuthProvider";
+
 
 
 const Navbar = () => {
-    // const { user, logoutUser } = useContext(AuthContext);
+   
     const token = localStorage.getItem("token");
     const navigate = useNavigate();
 
@@ -25,14 +25,7 @@ const Navbar = () => {
         tabIndex={0}
         className="menu menu-sm dropdown-content bg-base-100 rounded-box z-1 mt-3 w-52 p-2 shadow">
        <Link to={'/userProfile'}> <li><a>Profile</a></li></Link>
-        {/* <li>
-          <a>Parent</a>
-          <ul className="p-2">
-            <li><a>Submenu 1</a></li>
-            <li><a>Submenu 2</a></li>
-          </ul>
-        </li> */}
-        
+      
       </ul>
     </div>
     <a className="btn btn-ghost text-xl">Volunteering Platform</a>

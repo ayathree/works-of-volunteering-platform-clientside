@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 
 const PostProfile = ({userId}) => {
     const [loading, setLoading] = useState(true); // Initial loading is true
-    // const [profileData, setProfileData] = useState({});
+   
     const [userPosts, setUserPosts] = useState([]);
     const [userReplies, setUserReplies] = useState([]);
     const [error, setError] = useState("");
@@ -26,12 +26,12 @@ const PostProfile = ({userId}) => {
             };
 
             // Use GET method (to match backend route)
-            const response = await axios.get(`http://localhost:5000/profile/${userId}`, header);
+            const response = await axios.get(`https://works-of-volunteering-platform-serverside.vercel.app/profile/${userId}`, header);
             console.log("User data fetched:", response.data);
 
             if (response.data.status) {
                 const { userPosts, userReplies } = response.data;
-                // setProfileData(response.data.user); // Assuming the user object is returned
+            
                 setUserPosts(userPosts);
                 setUserReplies(userReplies);
             } else {

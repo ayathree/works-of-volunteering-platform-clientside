@@ -6,18 +6,18 @@ import { useState } from "react";
 import { useNavigate } from "react-router";
 import axios from "axios";
 import { ToastContainer, toast } from 'react-toastify';
-// import { AuthContext } from "../routes/AuthProvider";
+
 
 const Login = () => {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
-    // const { loginUser } = useContext(AuthContext);
+    
     const navigate = useNavigate();
 
     const handleLogin = async (e) => {
         
         e.preventDefault();
-        axios.post("http://localhost:5000/login", { email, password })
+        axios.post("https://works-of-volunteering-platform-serverside.vercel.app/login", { email, password })
        .then((res)=>{
         toast('logged in successfully')
            console.log("User register",res);
@@ -29,8 +29,7 @@ const Login = () => {
         .catch ((error)=>  console.error("login error:", error))
         toast('logged in failed')
         
-        //    
-        // }
+        
     };
 
     return (

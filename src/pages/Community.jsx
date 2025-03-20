@@ -18,7 +18,7 @@ const Community = () => {
       
     // Function to close the modal
     const closeModal = () => setShowModal(false);
-    // const navigate = useNavigate();
+   
 
     const token = JSON.parse(localStorage.getItem('token'))
 const handleSubmit = async (event) => {
@@ -38,7 +38,7 @@ const handleSubmit = async (event) => {
     }
 
     try {
-        const response = await axios.post("http://localhost:5000/allPosts", newPosts, {
+        const response = await axios.post("https://works-of-volunteering-platform-serverside.vercel.app/allPosts", newPosts, {
             headers: {
                 Authorization: `Bearer ${token}`,
             },
