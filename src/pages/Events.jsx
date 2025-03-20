@@ -92,13 +92,13 @@ const Events = () => {
 
       if (response.status === 200) {
           setIsJoined(true);
-          toast("Successfully joined the event!");
+          toast("");
       } else {
-        toast("Failed to join the event.");
+        toast("Successfully joined the event!");
       }
     } catch (error) {
       console.error("Error joining event:", error.message);
-      toast("Error joining the event. Try again later.");
+      toast("Error joining the event:",error.message);
     }
   };
 
@@ -195,20 +195,32 @@ const Events = () => {
               <p className="text-center">{event.description}</p>
 
               <div className="flex justify-center gap-5 mt-5">
-                <p>
+                <p className="flex justify-center items-center">
                   <MdDateRange /> {event.date}
                 </p>
-                <p>
+                <p className="flex justify-center items-center">
                   <FaLocationDot /> {event.location}
+                </p>
+              </div>
+              <div className="flex justify-center gap-5 mt-5">
+                < p className="flex justify-center items-center">
+                  <BiSolidCategory /> {event.category}
+                </p>
+                <p className="flex justify-center items-center">
+                  <IoIosTime /> {event.time}
                 </p>
               </div>
 
               {isJoined ? (
                 <p>You have successfully joined the event!</p>
               ) : (
-                <button onClick={() => handleJoinEvent(event._id, event.creatorId)}>
+                <div className="flex justify-center items-center mt-2">
+                  <button className="bg-blue-500 btn p-2 text-white font-semibold" onClick={() => handleJoinEvent(event._id, event.creatorId)}>
                   Join Event
                 </button>
+
+                </div>
+                
               )}
             </div>
           ))
