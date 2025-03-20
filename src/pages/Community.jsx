@@ -9,7 +9,7 @@ import AllPostCard from "../components/AllpostCard";
 const Community = () => {
 
     const loadedPosts = useLoaderData();
-    const [posts, setPosts] = useState(loadedPosts);
+    const [posts] = useState(loadedPosts);
     const [showModal, setShowModal] = useState(false);
 
      
